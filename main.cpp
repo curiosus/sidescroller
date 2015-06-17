@@ -3,18 +3,39 @@
 #include <SFML/Graphics.hpp>
 
 using sf::RenderWindow;
+using sf::View;
 using sf::Color;
 using sf::Event;
+using sf::Texture;
+using sf::Sprite;
+using sf::Vector2u;
+using sf::Vector2i;
+using std::cout;
+using std::endl;
 
 
-
-
-constexpr int windowWidth{1200};
-constexpr int windowHeight{900};
+const Vector2u windowSize{1200, 900};
 
 int main() {
 
-  RenderWindow window{{windowWidth, windowHeight}, "Side Scroller"};
+  Texture backgroundTexture;
+  if (!backgroundTexture.loadFromFile("background.png")) {
+    cout << "whoops" << endl;
+    return 1;
+  }
+  Sprite backgroundSprite;
+  backgroundSprite.setTexture(backgroundTexture);
+
+  Texture playerTexture;
+  if (!playerTexture.loadFromFile("player.png")) {
+    cout << "whoops2" << endl;
+    return 1;
+  }
+  Sprite playerSprite;
+  playerSprite.setTexture(playerTexture);
+
+  
+  RenderWindow window{{windowSize.x, windowSize.y}, "Side Scroller"};
   while (window.isOpen()) {
     window.clear(Color::Black);
     Event event;
@@ -25,7 +46,8 @@ int main() {
       }
     }
 
-    window.setTitle("Side Scroller");
+    window.draw(backgroundSprite);
+    window.draw(playerSprite);
     window.display();
     
 
