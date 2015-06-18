@@ -4,6 +4,7 @@
 
 using sf::RenderWindow;
 using sf::View;
+using sf::FloatRect;
 using sf::Color;
 using sf::Event;
 using sf::Keyboard;
@@ -37,7 +38,12 @@ int main() {
   playerSprite.setTexture(playerTexture);
 
   playerSprite.setPosition(150.0,750.0);
-  const Vector2f& playerMovement{-2.f, 0.f};
+  const Vector2f& playerMovement{-5.f, 0.f};
+
+  View view{FloatRect{200, 200, 300, 200}}; 
+  view.setCenter(200, 200);
+
+    
 
   
   RenderWindow window{{windowSize.x, windowSize.y}, "Side Scroller"};
@@ -50,7 +56,8 @@ int main() {
         break;
       } else if (event.type == Event::KeyPressed) {
         if (event.key.code == Keyboard::Key::A) {
-            backgroundSprite.move(playerMovement);
+           backgroundSprite.move(playerMovement);
+           //view.move(100, 100);
         }
         
       }
