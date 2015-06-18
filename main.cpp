@@ -6,10 +6,12 @@ using sf::RenderWindow;
 using sf::View;
 using sf::Color;
 using sf::Event;
+using sf::Keyboard;
 using sf::Texture;
 using sf::Sprite;
 using sf::Vector2u;
 using sf::Vector2i;
+using sf::Vector2f;
 using std::cout;
 using std::endl;
 
@@ -34,6 +36,9 @@ int main() {
   Sprite playerSprite;
   playerSprite.setTexture(playerTexture);
 
+  playerSprite.setPosition(150.0,750.0);
+  const Vector2f& playerMovement{-2.f, 0.f};
+
   
   RenderWindow window{{windowSize.x, windowSize.y}, "Side Scroller"};
   while (window.isOpen()) {
@@ -43,6 +48,11 @@ int main() {
       if (event.type == Event::Closed) {
         window.close();
         break;
+      } else if (event.type == Event::KeyPressed) {
+        if (event.key.code == Keyboard::Key::A) {
+            backgroundSprite.move(playerMovement);
+        }
+        
       }
     }
 
