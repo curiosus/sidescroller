@@ -3,7 +3,6 @@
 #include <SFML/Graphics.hpp>
 
 using sf::RenderWindow;
-using sf::View;
 using sf::FloatRect;
 using sf::Color;
 using sf::Event;
@@ -38,13 +37,12 @@ int main() {
   playerSprite.setTexture(playerTexture);
 
   playerSprite.setPosition(150.0,750.0);
-  const Vector2f& playerMovement{-5.f, 0.f};
-
-  View view{FloatRect{200, 200, 300, 200}}; 
-  view.setCenter(200, 200);
-
-    
-
+  const Vector2f& playerMovementRight{-10.f, 0.f};
+  const Vector2f& playerMovementLeft{10.f, 0.f};
+  //const Vector2f& playerMovementUp{0.f, -10.f};
+  //const Vector2f& playerMovementDown{0.f, 10.f};
+  
+  
   
   RenderWindow window{{windowSize.x, windowSize.y}, "Side Scroller"};
   while (window.isOpen()) {
@@ -55,9 +53,11 @@ int main() {
         window.close();
         break;
       } else if (event.type == Event::KeyPressed) {
+        if (event.key.code == Keyboard::Key::D) {
+           backgroundSprite.move(playerMovementRight);
+        }
         if (event.key.code == Keyboard::Key::A) {
-           backgroundSprite.move(playerMovement);
-           //view.move(100, 100);
+           backgroundSprite.move(playerMovementLeft);
         }
         
       }
