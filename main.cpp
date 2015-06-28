@@ -28,6 +28,14 @@ int main() {
   sf::Sprite playerSprite;
   playerSprite.setTexture(playerTexture);
   playerSprite.setPosition(600.0f, 800.0f);
+
+  sf::Texture monsterTexture;
+  if (!monsterTexture.loadFromFile("monster.png")) {
+    std::cout << "fuck fuckity fuck fuck fuck!" << std::endl;
+  }
+  sf::Sprite monsterSprite;
+  monsterSprite.setTexture(monsterTexture);
+  monsterSprite.setPosition(1050.0f, 700.0f);
   
   sf::RenderWindow window{{windowSize.x, windowSize.y}, "Side Scroller"};
   
@@ -45,21 +53,24 @@ int main() {
         const sf::Vector2f& pos = backgroundSprite.getPosition();
         std::cout << pos.x << std::endl; 
         if (event.key.code == sf::Keyboard::Key::D) {
-          if (pos.x <= -1790.f) {
+          if (pos.x == -1790.f) {
             backgroundSprite.setPosition(startPosition); 
           }
           backgroundSprite.move(moveRight);
+          monsterSprite.move(moveLeft);
         } else if (event.key.code == sf::Keyboard::Key::A) {
-          if (pos.x >= 0.f) {
+          if (pos.x == 0.f) {
             backgroundSprite.setPosition(endPosition);
           }   
           backgroundSprite.move(moveLeft);
+          monsterSprite.move(moveRight);
         }
       }
     }
 
     window.draw(backgroundSprite);
     window.draw(playerSprite);
+    window.draw(monsterSprite);
     window.display();
     
   }
